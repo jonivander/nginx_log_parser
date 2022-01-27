@@ -1,14 +1,44 @@
 #!/usr/bin/env node 
 
+const convert = (incoming, outgoing) => {
+    if (incoming === undefined) {
+        return `Incoming file name required`
+    } else if (outgoing === undefined) {
+        return `Outgoing file name required`
+    } else {
+        return `Log entries from ${incoming} successfully converted to JSON and stored in ${outgoing}`
+    }
+}
+
+const ua = (parsed, date) => {
+    if (parsed === undefined) {
+        return `Incoming file name required`
+    } else if (date === undefined) {
+        return `Date required`
+    } else {
+        return `Mozilla/5.0 (some browser and version) (12932)`
+    }
+}
+
+const hits = (parsed, date) => {
+    if (parsed === undefined) {
+        return `Incoming file name required`
+    } else if (date === undefined) {
+        return `Date required`
+    } else {
+        return `GET /somepath (91356)`
+    }
+}
+
 switch(process.argv[2]) {
     case "convert": 
-        console.log(`converting`)
+        console.log(convert(process.argv[3], process.argv[4]))
         break
     case "ua":
-        console.log(`user agent`)
+        console.log(ua(process.argv[3], process.argv[4]))
         break
     case "hits":
-        console.log(`hits`)
+        console.log(hits(process.argv[3], process.argv[4]))
         break
     default:
         console.log(`unknown command ${process.argv[2]}
