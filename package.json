@@ -1,0 +1,22 @@
+{
+  "name": "nginx_log_parser",
+  "version": "1.0.0",
+  "description": "CLI to parse nginx logs to json ",
+  "main": "index.js",
+  "bin": {
+    "nginxcli": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonivander/nginx_log_parser.git"
+  },
+  "author": "Jonathan Warner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonivander/nginx_log_parser/issues"
+  },
+  "homepage": "https://github.com/jonivander/nginx_log_parser#readme"
+}

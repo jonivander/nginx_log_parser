@@ -1,0 +1,49 @@
+{
+  "$id": "https://github.com/slalompdx/schema/logs.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Describes nginx server access logs",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "properties": {
+      "ipAddress": {
+        "type": "string",
+        "format": "ipv4",
+        "description": "The accessing client's IP address"
+      },
+      "requestTimestamp": {
+        "type": "string",
+        "description": "The time of the request according to the server"
+      },
+      "requestMethod": {
+        "type": "string",
+        "pattern": "^(GET|HEAD|PUT|CONNECT|POST|PATCH|DELETE|TRACE|OPTIONS)$",
+        "description": "The HTTP method used in the request"
+      },
+      "requestPath": {
+        "type": "string",
+        "pattern": "^/.*$",
+        "description": "The path on the server that was requested"
+      },
+      "requestStatus": {
+        "type": "integer",
+        "minimum": 200,
+        "maximum": 599,
+        "description": "The HTTP status code associated with the request"
+      },
+      "userAgent": {
+        "type": "string",
+        "description": "The (reported) user agent used to make the request"
+      }
+    },
+    "required": [
+      "ipAddress",
+      "requestTimestamp",
+      "requestMethod",
+      "requestPath",
+      "requestStatus",
+      "userAgent"
+    ]
+  }
+}
