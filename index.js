@@ -15,7 +15,7 @@ const parseLog = (incoming) => {
 
         return {
             "ipAddress": logs[0],
-            "requestTimestamp": `${logs[3]} ${logs[4]}`,
+            "requestTimestamp": logs[3].split(':')[0].split('[')[1],
             "requestMethod": logs[5],
             "requestPath": logs[6],
             "requestStatus": logs[8],
@@ -61,6 +61,8 @@ const convert = async (incoming, outgoing) => {
 };
 
 const ua = (parsed, date) => {
+    let counter = 0
+
   if (parsed === undefined) {
     return `Incoming file name required`;
   } else if (date === undefined) {
@@ -91,7 +93,7 @@ const start = async () => {
     case "hits":
         console.log(hits(process.argv[3], process.argv[4]))
         break
-        case "testParse": 
+    case "testParse": 
         console.log(parseLog(dummyData))
         break
     default:
