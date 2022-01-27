@@ -1,47 +1,64 @@
-#!/usr/bin/env node 
+#!/usr/bin/env node
+const fs = require("fs");
 
-const convert = (incoming, outgoing) => {
-    if (incoming === undefined) {
-        return `Incoming file name required`
-    } else if (outgoing === undefined) {
-        return `Outgoing file name required`
-    } else {
-        return `Log entries from ${incoming} successfully converted to JSON and stored in ${outgoing}`
-    }
+
+const fileInput = (fileName) => {
+    return new Promise((resolve, reject) => {
+        fs.promises.readFile(fileName)
+        .then(result => {
+            resolve(`${result}`) 
+        })
+        .catch((err) => {
+            resolve(`File failed to open`)
+        })
+    })
 }
+
+const fileOutput = (fileName, fileContent) => {};
+
+const convert = async (incoming, outgoing) => {
+  if (incoming === undefined) {
+    return `Incoming file name required`
+  } else if (outgoing === undefined) {
+    return `Outgoing file name required`
+  } else {
+    console.log(await fileInput(incoming))
+    // return `Log entries from ${incoming} successfully converted to JSON and stored in ${outgoing}`
+  }
+};
 
 const ua = (parsed, date) => {
-    if (parsed === undefined) {
-        return `Incoming file name required`
-    } else if (date === undefined) {
-        return `Date required`
-    } else {
-        return `Mozilla/5.0 (some browser and version) (12932)`
-    }
-}
+  if (parsed === undefined) {
+    return `Incoming file name required`;
+  } else if (date === undefined) {
+    return `Date required`;
+  } else {
+    return `Mozilla/5.0 (some browser and version) (12932)`;
+  }
+};
 
 const hits = (parsed, date) => {
-    if (parsed === undefined) {
-        return `Incoming file name required`
-    } else if (date === undefined) {
-        return `Date required`
-    } else {
-        return `GET /somepath (91356)`
-    }
-}
+  if (parsed === undefined) {
+    return `Incoming file name required`;
+  } else if (date === undefined) {
+    return `Date required`;
+  } else {
+    return `GET /somepath (91356)`;
+  }
+};
 
-switch(process.argv[2]) {
-    case "convert": 
-        console.log(convert(process.argv[3], process.argv[4]))
-        break
-    case "ua":
-        console.log(ua(process.argv[3], process.argv[4]))
-        break
-    case "hits":
-        console.log(hits(process.argv[3], process.argv[4]))
-        break
-    default:
-        console.log(`unknown command ${process.argv[2]}
+switch (process.argv[2]) {
+  case "convert":
+    console.log(convert(process.argv[3], process.argv[4]));
+    break;
+  case "ua":
+    console.log(ua(process.argv[3], process.argv[4]));
+    break;
+  case "hits":
+    console.log(hits(process.argv[3], process.argv[4]));
+    break;
+  default:
+    console.log(`unknown command ${process.argv[2]}
         usable commands:
         convert - converts nginx logs into json format
         ua - Identifies the most used User Agent and number of hits
@@ -50,5 +67,5 @@ switch(process.argv[2]) {
         Example:
         nginxcli convert access.log access.json
         nginxcli ua access.json 08/Nov/2020
-        nginxcli hits access.json 10/Nov/2020`)
+        nginxcli hits access.json 10/Nov/2020`);
 }
